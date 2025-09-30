@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Can u be my horror booth buddy?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #87ceeb; /* Sky blue */
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+    .main-gif, .celebrate-gif {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      margin-bottom: 1.2em;
+      background: #eee;
+      border: none;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      transition: opacity 0.4s;
+    }
+    h1 {
+      color: #0b5fa5;
+      margin-bottom: 1.3em;
+      font-size: 2em;
+      text-align: center;
+      text-shadow: 0 2px 6px #fff3;
+      transition: opacity 0.4s;
+    }
+    .btns {
+      margin-top: 1em;
+      display: flex;
+      gap: 2em;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 360px;
+      min-height: 80px;
+      height: 80px;
+      transition: opacity 0.4s;
+      z-index: 3;
+    }
+    .btn {
+      padding: 0.8em 2em;
+      font-size: 1.2em;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      position: relative;
+      z-index: 2;
+      transition: background 0.2s, color 0.2s;
+      user-select: none;
+    }
+    #yesBtn {
+      background: #111;
+      color: #fff;
+    }
+    #yesBtn:hover {
+      background: #333;
+      color: #fff;
+    }
+    #noBtn {
+      background: #fff;
+      color: #111;
+      border: 2px solid #111;
+      position: fixed;
+      top: 75%;
+      left: 70%;
+      transition: left 0.3s, top 0.3s;
+      z-index: 100;
+    }
+    #noBtn:hover, #noBtn:active {
+      background: #eee;
+      color: #111;
+    }
+    .celebrate-message {
+      color: #0b5fa5;
+      font-size: 2em;
+      margin-top: 1.5em;
+      font-weight: bold;
+      text-align: center;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px #fff5;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .celebrate-show {
+      opacity: 1 !important;
+      transition: opacity 0.4s;
+    }
+    .hidden {
+      display: none !important;
+    }
+    @media (max-width: 600px) {
+      .main-gif, .celebrate-gif { width: 120px; height: 120px; }
+      h1 { font-size: 1.2em; }
+      .btn { font-size: 1em; padding: 0.6em 1em; }
+      .btns { width: 100%; gap: 1em; }
+    }
+  </style>
+</head>
+<body>
+    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWR6OGFudXZ0MTV5bnJ5NzB5ZDR6OTd1MHpmODNkODdmeHRta3J3diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/J509hr2j0oMejwlKOS/giphy.gif" id="mainGif" class="main-gif">
+    <h1 id="question">Can u be my horror booth buddy HEEHEHE </h1>
+    <div class="btns" id="btns">
+      <button class="btn" id="yesBtn" onclick="sayYes()">Yes!</button>
+      <button class="btn" id="noBtn" 
+        onmouseover="moveNoBtn()" 
+        ontouchstart="moveNoBtn()">No</button>
+    </div>
+    <div id="celebrate" style="display: none;">
+      <img src="https://media.tenor.com/5nSKlBlwdkIAAAAi/cat.gif" class="celebrate-gif">
+      <div class="celebrate-message" id="celebrateMsg">YIPIEEEEE 🎉</div>
+    </div>
+  <script>
+    function sayYes() {
+      document.getElementById('mainGif').classList.add('hidden');
+      document.getElementById('question').classList.add('hidden');
+      document.getElementById('btns').classList.add('hidden');
+      document.getElementById('celebrate').style.display = 'block';
+      setTimeout(function() {
+        document.getElementById('celebrateMsg').classList.add('celebrate-show');
+      }, 200); // fade in the message
+    }
+
+    function moveNoBtn() {
+      const btn = document.getElementById('noBtn');
+      // Get viewport size
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const btnW = btn.offsetWidth;
+      const btnH = btn.offsetHeight;
+      // Leave some padding from the edges
+      const padding = 20;
+      // Generate totally random positions
+      let randX = Math.random() * (vw - btnW - 2 * padding) + padding;
+      let randY = Math.random() * (vh - btnH - 2 * padding) + padding;
+      btn.style.left = randX + 'px';
+      btn.style.top = randY + 'px';
+    }
+    // For mobile: also move if touching
+    document.getElementById('noBtn').addEventListener('touchstart', moveNoBtn);
+  </script>
+</body>
+</html>
